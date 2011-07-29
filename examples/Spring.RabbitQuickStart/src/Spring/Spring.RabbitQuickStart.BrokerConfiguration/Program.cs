@@ -16,8 +16,6 @@ namespace Spring.RabbitQuickStart.BrokerConfiguration
 
                 var marketDataQueue = new Queue("APP.STOCK.MARKETDATA");
                 amqpAdmin.DeclareQueue(marketDataQueue);
-                var binding = BindingBuilder.Bind(marketDataQueue).To(DirectExchange.DEFAULT).WithQueueName();
-                amqpAdmin.DeclareBinding(binding);
 
                 amqpAdmin.DeclareQueue(new Queue("APP.STOCK.REQUEST"));
                 amqpAdmin.DeclareQueue(new Queue("APP.STOCK.JOE"));

@@ -16,7 +16,12 @@ namespace Spring.RabbitQuickStart.Server
             try
             {
                 // Using Spring's IoC container
-                ContextRegistry.GetContext(); 
+                ContextRegistry.GetContext();
+
+                Spring.Messaging.Amqp.Rabbit.Listener.SimpleMessageListenerContainer container =
+                     ContextRegistry.GetContext().GetObject("MessageListenerContainer") as Spring.Messaging.Amqp.Rabbit.Listener.SimpleMessageListenerContainer;
+                container.Start();
+                
                 Console.Out.WriteLine("Server listening...");
                 IMarketDataService marketDataService =
                     ContextRegistry.GetContext().GetObject("MarketDataGateway") as MarketDataServiceGateway;

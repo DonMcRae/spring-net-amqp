@@ -29,7 +29,7 @@ namespace Spring.Amqp.HelloWorld.Producer.Async
         {
             using (var ctx = ContextRegistry.GetContext())
             {
-                var amqpTemplate = ctx.GetObject<IAmqpTemplate>();
+                var amqpTemplate = (IAmqpTemplate)ctx.GetObject("IAmqpTemplate");
                 int i = 0;
                 while (true)
                 {

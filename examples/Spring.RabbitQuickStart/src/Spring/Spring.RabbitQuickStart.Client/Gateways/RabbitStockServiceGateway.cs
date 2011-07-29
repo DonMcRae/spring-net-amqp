@@ -20,7 +20,12 @@ namespace Spring.RabbitQuickStart.Client.Gateways
 
         public void Send(TradeRequest tradeRequest)
         {
-            RabbitTemplate.ConvertAndSend(tradeRequest);           
+            RabbitTemplate.ConvertAndSend(tradeRequest, delegate(Message message)
+            {
+                message.MessageProperties.ReplyTo = new Address(defaultReplyToQueue);
+                message.MessageProperties.CorrelationId = new Guid().ToByteArray();
+                return message;
+            });           
         }        
     }
 }

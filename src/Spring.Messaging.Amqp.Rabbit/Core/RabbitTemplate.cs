@@ -258,6 +258,58 @@ namespace Spring.Messaging.Amqp.Rabbit.Core
             this.Send(exchange, routingKey, Execute<Message>(channel => this.GetRequiredMessageConverter().ToMessage(message, new MessageProperties())));
         }
 
+
+        /// <summary>
+        /// Convert and send a message, given the message.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="messagePostProcessorDelegate">
+        /// The message post processor delegate.
+        /// </param>
+        public void ConvertAndSend(object message, MessagePostProcessorDelegate messagePostProcessorDelegate)
+        {
+            this.ConvertAndSend(this.exchange, this.routingKey, message, messagePostProcessorDelegate);
+        }
+
+        /// <summary>
+        /// Convert and send a message, given a routing key and the message.
+        /// </summary>
+        /// <param name="routingKey">
+        /// The routing key.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="messagePostProcessorDelegate">
+        /// The message post processor delegate.
+        /// </param>
+        public void ConvertAndSend(string routingKey, object message, MessagePostProcessorDelegate messagePostProcessorDelegate)
+        {
+            this.ConvertAndSend(this.exchange, routingKey, message, messagePostProcessorDelegate);
+        }
+
+        /// <summary>
+        /// Convert and send a message, given an exchange, a routing key, and the message.
+        /// </summary>
+        /// <param name="exchange">
+        /// The exchange.
+        /// </param>
+        /// <param name="routingKey">
+        /// The routing key.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="messagePostProcessorDelegate">
+        /// The message post processor delegate.
+        /// </param>
+        public void ConvertAndSend(string exchange, string routingKey, object message, MessagePostProcessorDelegate messagePostProcessorDelegate)
+        {
+            this.Send(exchange, routingKey, messagePostProcessorDelegate(Execute<Message>(channel => this.GetRequiredMessageConverter().ToMessage(message, new MessageProperties()))));
+        }
+
         /// <summary>
         /// Receive a message.
         /// </summary>
