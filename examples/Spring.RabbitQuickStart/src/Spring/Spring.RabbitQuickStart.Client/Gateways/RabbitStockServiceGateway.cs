@@ -25,7 +25,16 @@ namespace Spring.RabbitQuickStart.Client.Gateways
                 message.MessageProperties.ReplyTo = new Address(defaultReplyToQueue);
                 message.MessageProperties.CorrelationId = new Guid().ToByteArray();
                 return message;
-            });           
+            });
+
+            //var res = RabbitTemplate.ConvertSendAndReceive(tradeRequest, delegate(Message message)
+            //{
+            //    //message.MessageProperties.ReplyTo = new Address(defaultReplyToQueue);
+            //    message.MessageProperties.CorrelationId = new Guid().ToByteArray();
+            //    return message;
+            //});           
+
+        
         }        
     }
 }
